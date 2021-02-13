@@ -1,0 +1,133 @@
+Metadata-Version: 2.1
+Name: funnelpy
+Version: 0.1.9999
+Summary: Visualise a funnel plot
+Home-page: https://github.com/lyonjust/funnelpy
+License: MIT
+Description: # FunnelPy
+        > A basic Python package to create funnel plots (not to be confused with funnel charts). 
+        
+        This package was inspired by Stephen Few's excellent article "Variation and Its Discontents". 
+        https://www.perceptualedge.com/articles/visual_business_intelligence/variation_and_its_discontents.pdf
+        
+        
+        ## Installation
+        
+        ```sh
+        pip install funnelpy
+        import funnelpy as fpy
+        ```
+        
+        ## Parameters
+        
+        ### `fpy.funnelpy(groups, samplesizes, incidents, [length], [twosigma], [threesigma], [color_twosigma], [color_threesigma], [color_mean], [color_data], [color_face], [funnel_size], [plt_title], [plt_xlabel], [plt_ylabel])`
+        
+        
+        - `groups` (`string`): a list of strings, naming the groups to be plotted.
+        - `samplesizes` (`int`): a list of integers, representing the sample sizes of each member of the group.
+        - `incidents` (`int`): a list of integers, representing the number of times an event occured for each member of the group.
+        - `length` (`int`): (Optional) an integer representing the number of intervals across the x axis to be plotted. Defaults to 50 if omitted. This effectively dictates the "smoothness" of the sigma curves. A small number is jarring, a large number is smooth.
+        - `twosigma` (`bool`): (Optional) a boolean flag to return the upper/lower "two sigma" (95% confidence interval) lines. Defaults to True if omitted.
+        - `threesigma` (`bool`): (Optional) a boolean flag to return the upper/lower "three sigma" (99.8% confidence interval) lines. Defaults to True if omitted.
+        - `color_twosigma` (`string`): (Optional) a string for color of the "two sigma" lines, passed to seaborn. Any supported seaborn colors are supported. Defaults to '#CCCCCC' if omitted.
+        - `color_threesigma` (`string`): (Optional) a string for color of the "three sigma" lines, passed to seaborn. Any supported seaborn colors are supported. Defaults to '#CCCCCC' if omitted.
+        - `color_mean` (`string`): (Optional) a string for color of the mean line, passed to seaborn. Any supported seaborn colors are supported. Defaults to '#CCCCCC' if omitted.
+        - `color_data` (`string`): (Optional) a string for color of the data points to be plotted on the scatter plot, passed to seaborn. Any supported seaborn colors are supported. Defaults to '#88BDE6' if omitted.
+        - `color_face` (`string`): (Optional) a string for color of the face of the plot, passed to seaborn. Any supported seaborn colors are supported. Defaults to 'white' if omitted.
+        - `funnel_size` (`int`): (Optional) a tuple of integers for size of the figure to be plotted. Passed to matplotlib. Defaults to '(10,10)' if omitted.
+        - `plt_title` (`string`): (Optional) a string for title of the plot, passed to matplotlib. Defaults to None if omitted.
+        - `plt_xlabel` (`string`): (Optional) a string for title of the x axis, passed to matplotlib. Defaults to None if omitted.
+        - `plt_ylabel` (`string`): (Optional) a string for title of the y axis, passed to matplotlib. Defaults to None if omitted.
+        
+        
+        ## Usage example
+        
+        This example replicates the sample data used by Stephen Few in "Variation and Its Discontents", i.e. the sales performance of Tony, Mike, Jan et al.
+        ```sh
+        import funnelpy as fpy
+        
+        fpy.funnelpy(
+        
+            groups = [
+            'Tony',
+            'Mike',
+            'Jan',
+            'Bob',
+            'Sheila',
+            'Jeff',
+            'Sandy',
+            'Mitch',
+            'Mary',
+            'John'],
+            
+            samplesizes = [
+            2,
+            400,
+            100,
+            1000,
+            2,
+            10,
+            500,
+            200,
+            10,
+            2],
+            
+            incidents = [
+            2,
+            224,
+            54,
+            505,
+            1,
+            5,
+            236,
+            92,
+            3,
+            0],
+            
+            length = 50,
+            
+            twosigma = False,
+            threesigma = True,
+            color_data = '#88BDE6',
+            plt_title = 'Funnel Plot of Sales Conversions',
+            plt_xlabel = 'Sales opportunities',
+            plt_ylabel = 'Successful sales conversions'
+        )
+        ```
+        
+        
+        ## Release History
+        
+        * 0.1.0
+            * I still don't know what I'm doing.
+        * 0.0.1
+            * I don't know what I'm doing.
+        
+        ## Author
+        
+        Justin Lyons
+        
+        Distributed under the MIT license. See ``LICENSE`` for more information.
+        
+        [https://github.com/lyonjust/funnelpy](https://github.com/lyonjust/)
+        
+        ## Contributing
+        
+        1. Fork it (<https://github.com/yourname/yourproject/fork>)
+        2. Create your feature branch (`git checkout -b feature/fooBar`)
+        3. Commit your changes (`git commit -am 'Add some fooBar'`)
+        4. Push to the branch (`git push origin feature/fooBar`)
+        5. Create a new Pull Request
+        
+        <!-- Markdown link & img dfn's -->
+        [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
+        [npm-url]: https://npmjs.org/package/datadog-metrics
+        [npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
+        [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
+        [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
+        [wiki]: https://github.com/yourname/yourproject/wiki
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Description-Content-Type: text/markdown

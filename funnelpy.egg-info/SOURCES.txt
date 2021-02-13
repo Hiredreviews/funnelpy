@@ -1,0 +1,9 @@
+README.md
+setup.py
+funnelpy/__init__.py
+funnelpy/funnelpy.py
+funnelpy.egg-info/PKG-INFO
+funnelpy.egg-info/SOURCES.txt
+funnelpy.egg-info/dependency_links.txt
+funnelpy.egg-info/requires.txt
+funnelpy.egg-info/top_level.txt
