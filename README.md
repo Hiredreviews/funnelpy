@@ -106,7 +106,8 @@ fpy.funnelplot(
     plt_ylim_max = 1.01
 )
 ```
-
+### Output
+![Sample funnel plot output.](https://github.com/lyonjust/funnelpy/blob/master/sampleFunnel.png?raw=true)
 
 ## Release History
 * 0.2.0
@@ -116,6 +117,6 @@ fpy.funnelplot(
 
 Justin Lyons
 
-Distributed under the MIT license. See ``LICENSE`` for more information.
+Distributed under the MIT license.
 
 [https://github.com/lyonjust/funnelpy]
