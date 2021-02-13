@@ -18,6 +18,10 @@ The first function **sigmas** calculates the confidence intervals for a funnel p
 
 The second function **funnelplot**  first calls  **sigmas** to retrieve those two dataframes, and then additionally visualises the funnel plot.
 
+**funnelplot** exists to take your inputs and return you a -- well -- funnel plot.
+
+Power users may prefer to use **sigmas** to simply perform the confidence interval calculations and have the flexibility to use these as inputs into their own plots.
+
 ## Parameters
 
 ### `fpy.sigmas(groups, samplesizes, incidents, [length])`
@@ -48,7 +52,7 @@ The second function **funnelplot**  first calls  **sigmas** to retrieve those tw
 - `plt_ylim_max` (`float`): (Optional) a float for maximum value of the y axis, passed to matplotlib. Defaults to None if omitted.
 
 
-## Usage example
+## Usage Example - funnelplot
 
 This example replicates the sample data used by Stephen Few in "Variation and Its Discontents", i.e. the sales performance of Tony, Mike, Jan et al.
 ```sh
@@ -108,6 +112,52 @@ fpy.funnelplot(
 ```
 ### Output
 ![Sample funnel plot output.](https://github.com/lyonjust/funnelpy/blob/master/sampleFunnel.png?raw=true)
+
+## Usage Example - sigmas
+
+This example uses the same data but does not visualise the funnel plot.
+```sh
+import funnelpy.funnelpy as fpy
+
+df_sigmas, df_data = fpy.sigmas(
+
+    groups = [
+    'Tony',
+    'Mike',
+    'Jan',
+    'Bob',
+    'Sheila',
+    'Jeff',
+    'Sandy',
+    'Mitch',
+    'Mary',
+    'John'],
+    
+    samplesizes = [
+    2,
+    400,
+    100,
+    1000,
+    2,
+    10,
+    500,
+    200,
+    10,
+    2],
+    
+    incidents = [
+    2,
+    224,
+    54,
+    505,
+    1,
+    5,
+    236,
+    92,
+    3,
+    0]
+)
+```
 
 ## Release History
 * 0.2.0

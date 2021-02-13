@@ -88,7 +88,9 @@ def funnelplot(
 	funnel_size = (10, 10),
 	plt_title = None,
 	plt_xlabel = None,
-	plt_ylabel = None):
+	plt_ylabel = None,
+        plt_ylim_min = None,
+        plt_ylim_max = None):
 
     # call sigmas
     limits_to_plot, datapoints_to_plot = sigmas(
@@ -112,6 +114,8 @@ def funnelplot(
     ax = sns.lineplot(data=limits_to_plot, x = 'chart_index', y = 'mean', color = color_mean)
 
     ax = sns.scatterplot(data = datapoints_to_plot, x = 'samplesizes', y = 'incident_rates', color = color_data)
+
+    ax.set_ylim(ymin = plt_ylim_min, ymax = plt_ylim_max)
 
     ax.set_facecolor(color_face)
     fig.patch.set_facecolor(color_face)

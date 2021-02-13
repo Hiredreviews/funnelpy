@@ -1,8 +1,10 @@
 Metadata-Version: 2.1
 Name: funnelpy
-Version: 0.1.9999
-Summary: Visualise a funnel plot
+Version: 0.2.1
+Summary: Create a funnel plot.
 Home-page: https://github.com/lyonjust/funnelpy
+Author: Justin Lyons
+Author-email: lyonjust@outlook.com
 License: MIT
 Description: # FunnelPy
         > A basic Python package to create funnel plots (not to be confused with funnel charts). 
@@ -15,13 +17,29 @@ Description: # FunnelPy
         
         ```sh
         pip install funnelpy
-        import funnelpy as fpy
+        import funnelpy.funnelpy as fpy
         ```
+        ## Functions
+        The module funnelpy includes two functions.
+        
+        The first function **sigmas** calculates the confidence intervals for a funnel plot and returns two dataframes, one storing the calculated upper and lower sigma curves (i.e. confidence intervals) and one storing the actual observed data. 
+        
+        The second function **funnelplot**  first calls  **sigmas** to retrieve those two dataframes, and then additionally visualises the funnel plot.
+        
+        **funnelplot** exists to take your inputs and return you a -- well -- funnel plot.
+        
+        Power users may prefer to use **sigmas** to simply perform the confidence interval calculations and have the flexibility to use these as inputs into their own plots.
         
         ## Parameters
         
-        ### `fpy.funnelpy(groups, samplesizes, incidents, [length], [twosigma], [threesigma], [color_twosigma], [color_threesigma], [color_mean], [color_data], [color_face], [funnel_size], [plt_title], [plt_xlabel], [plt_ylabel])`
+        ### `fpy.sigmas(groups, samplesizes, incidents, [length])`
         
+        - `groups` (`string`): a list of strings, naming the groups to be plotted.
+        - `samplesizes` (`int`): a list of integers, representing the sample sizes of each member of the group.
+        - `incidents` (`int`): a list of integers, representing the number of times an event occured for each member of the group.
+        - `length` (`int`): (Optional) an integer representing the number of intervals across the x axis to be plotted. Defaults to 50 if omitted. This effectively dictates the "smoothness" of the sigma curves. A small number is jarring, a large number is smooth.
+        
+        ### `fpy.funnelplot(groups, samplesizes, incidents, [length], [twosigma], [threesigma], [color_twosigma], [color_threesigma], [color_mean], [color_data], [color_face], [funnel_size], [plt_title], [plt_xlabel], [plt_ylabel], [plt_ylim_min], [plt_ylim_max])`
         
         - `groups` (`string`): a list of strings, naming the groups to be plotted.
         - `samplesizes` (`int`): a list of integers, representing the sample sizes of each member of the group.
@@ -38,15 +56,17 @@ Description: # FunnelPy
         - `plt_title` (`string`): (Optional) a string for title of the plot, passed to matplotlib. Defaults to None if omitted.
         - `plt_xlabel` (`string`): (Optional) a string for title of the x axis, passed to matplotlib. Defaults to None if omitted.
         - `plt_ylabel` (`string`): (Optional) a string for title of the y axis, passed to matplotlib. Defaults to None if omitted.
+        - `plt_ylim_min` (`float`): (Optional) a float for minimum value of the y axis, passed to matplotlib. Defaults to None if omitted.
+        - `plt_ylim_max` (`float`): (Optional) a float for maximum value of the y axis, passed to matplotlib. Defaults to None if omitted.
         
         
-        ## Usage example
+        ## Usage Example - funnelplot
         
         This example replicates the sample data used by Stephen Few in "Variation and Its Discontents", i.e. the sales performance of Tony, Mike, Jan et al.
         ```sh
-        import funnelpy as fpy
+        import funnelpy.funnelpy as fpy
         
-        fpy.funnelpy(
+        fpy.funnelplot(
         
             groups = [
             'Tony',
@@ -84,48 +104,80 @@ Description: # FunnelPy
             3,
             0],
             
-            length = 50,
+            length = 100,
             
-            twosigma = False,
+            twosigma = True,
             threesigma = True,
-            color_data = '#88BDE6',
-            plt_title = 'Funnel Plot of Sales Conversions',
-            plt_xlabel = 'Sales opportunities',
-            plt_ylabel = 'Successful sales conversions'
+            color_data = '#F79646',
+            color_mean = '#F79646',
+            color_threesigma = 'Black',
+            plt_title = 'Funnel Plot of Successful Sales Conversions',
+            plt_xlabel = 'Sales Opportunities',
+            plt_ylabel = 'Successful Sales Conversions',
+            plt_ylim_min = -0.01,
+            plt_ylim_max = 1.01
+        )
+        ```
+        ### Output
+        ![Sample funnel plot output.](https://github.com/lyonjust/funnelpy/blob/master/sampleFunnel.png?raw=true)
+        
+        ## Usage Example - sigmas
+        
+        This example uses the same data but does not visualise the funnel plot.
+        ```sh
+        import funnelpy.funnelpy as fpy
+        
+        df_sigmas, df_data = fpy.sigmas(
+        
+            groups = [
+            'Tony',
+            'Mike',
+            'Jan',
+            'Bob',
+            'Sheila',
+            'Jeff',
+            'Sandy',
+            'Mitch',
+            'Mary',
+            'John'],
+            
+            samplesizes = [
+            2,
+            400,
+            100,
+            1000,
+            2,
+            10,
+            500,
+            200,
+            10,
+            2],
+            
+            incidents = [
+            2,
+            224,
+            54,
+            505,
+            1,
+            5,
+            236,
+            92,
+            3,
+            0]
         )
         ```
         
-        
         ## Release History
-        
-        * 0.1.0
-            * I still don't know what I'm doing.
-        * 0.0.1
-            * I don't know what I'm doing.
+        * 0.2.0
+            * First somewhat stable release. Anything prior to this is going to be a disaster.
         
         ## Author
         
         Justin Lyons
         
-        Distributed under the MIT license. See ``LICENSE`` for more information.
+        Distributed under the MIT license.
         
-        [https://github.com/lyonjust/funnelpy](https://github.com/lyonjust/)
-        
-        ## Contributing
-        
-        1. Fork it (<https://github.com/yourname/yourproject/fork>)
-        2. Create your feature branch (`git checkout -b feature/fooBar`)
-        3. Commit your changes (`git commit -am 'Add some fooBar'`)
-        4. Push to the branch (`git push origin feature/fooBar`)
-        5. Create a new Pull Request
-        
-        <!-- Markdown link & img dfn's -->
-        [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-        [npm-url]: https://npmjs.org/package/datadog-metrics
-        [npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-        [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-        [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-        [wiki]: https://github.com/yourname/yourproject/wiki
+        [https://github.com/lyonjust/funnelpy]
 Platform: UNKNOWN
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3
