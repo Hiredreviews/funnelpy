@@ -4,6 +4,7 @@ from operator import truediv
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 def sigmas(
 	groups,
@@ -16,13 +17,18 @@ def sigmas(
 
     # calculate key values
     incident_rates = list(map(truediv, incidents, samplesizes)) 
-
-    # need to weight this mean!!!
-    mean = statistics.mean(incident_rates)
     min_groupsize = min(samplesizes)
     max_groupsize = max(samplesizes)
     spread_groupsize = max_groupsize - min_groupsize
     interval = spread_groupsize / length
+
+    # we should calculate a weighted mean using the inverse standard error
+    # to ensures the "mean" is more influenced by groups with larger sample size / precision
+    # and less influenced by groups with small sample size
+    # until I sort this out, let's at least weight the mean by sample size
+    # mean_arithmetic = statistics.mean(incident_rates)
+    # sem = np.std(incident_rates, ddof=1) / np.sqrt(np.size(incident_rates))
+    mean = np.average(incident_rates, weights=samplesizes)
 
     # create lists
     lst_ss = [0] * int(length)

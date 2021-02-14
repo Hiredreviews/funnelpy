@@ -22,6 +22,9 @@ The second function **funnelplot**  first calls  **sigmas** to retrieve those tw
 
 Power users may prefer to use **sigmas** to simply perform the confidence interval calculations and have the flexibility to use these as inputs into their own plots.
 
+## Warning
+The statistics behind funnel plots assume the underlying data is Normally distributed. Please ensure your datapoints are approximately Normal before using this package.
+
 ## Parameters
 
 ### `fpy.sigmas(groups, samplesizes, incidents, [length])`
@@ -115,7 +118,9 @@ fpy.funnelplot(
 
 ## Usage Example - sigmas
 
-This example uses the same data but does not visualise the funnel plot.
+This example uses the same data but does not visualise the funnel plot directly through the function.
+
+Instead, retrieves the calulcated confidence intervals and produces a plot through manual use of seaborn and matplotlib functionality. This gives us greater flexibility over visualisation design.
 ```sh
 import funnelpy.funnelpy as fpy
 
@@ -159,7 +164,67 @@ df_sigmas, df_data = fpy.sigmas(
 )
 ```
 
+```sh
+# scale datapoints by 100 to convert to percentages
+df_data['incident_rates'] = df_data['incident_rates'] * 100
+
+for col in ['lowertwosigma', 'uppertwosigma', 'lowerthreesigma', 'upperthreesigma', 'mean']:
+    df_sigmas[col] = df_sigmas[col] * 100
+```
+
+```sh
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+import seaborn as sns
+
+# build plot
+fig, ax = plt.subplots(figsize=(10,10))
+
+# plot curves, utilizing zorder to ensure data points from scatterplot are layered on top of the curves
+ax = sns.lineplot(data=df_sigmas, x = 'chart_index', y = 'uppertwosigma', color = '#b2afc3', zorder = 1)
+ax = sns.lineplot(data=df_sigmas, x = 'chart_index', y = 'lowertwosigma', color = '#b2afc3', zorder = 1)
+ax = sns.lineplot(data=df_sigmas, x = 'chart_index', y = 'upperthreesigma', color = 'Black', zorder = 2)
+ax = sns.lineplot(data=df_sigmas, x = 'chart_index', y = 'lowerthreesigma', color = 'Black', zorder = 2)
+ax = sns.lineplot(data=df_sigmas, x = 'chart_index', y = 'mean', color = '#F79646')
+ax = sns.scatterplot(data = df_data, x = 'samplesizes', y = 'incident_rates', color = '#F79646', s = 80, zorder  = 3)
+
+# tighten axes limits and give labels
+ax.set_ylim(ymin = -1, ymax = 101)
+ax.set_xlim(xmin = 0)
+plt.yticks(range(0, 110, 10))
+plt.title('Successful Sales Conversions')
+plt.xlabel('Sales Opportunities')
+plt.ylabel(None)
+
+ax.yaxis.set_major_formatter(mtick.PercentFormatter())
+
+# hide the top and right borders of the plot
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+
+# annotate Mike as the only data point that is significant (95% confidence interval)
+ax.annotate('Mike', xy=(400, 56.3),  xycoords='data',
+            xytext=(475, 65), textcoords='data',
+            arrowprops=dict(facecolor='black', shrink=0.1, width = 0.5, headwidth = 7),
+            horizontalalignment='right', verticalalignment='top')
+
+# annotate the sigma curves and mean
+# for mean we pick the exact y value from the sigmas dataframe
+# we choose not to do this for the sigma curves as the labels end up overlapping
+# so just hardcode these to something reasonable and legible
+plt.annotate('Upper 3 Sigma Limit', (1015, 55))
+plt.annotate('Upper 2 Sigma Limit', (1015, 53), color = '#b2afc3')
+plt.annotate('Lower 2 Sigma Limit', (1015, 47), color = '#b2afc3')
+plt.annotate('Lower 3 Sigma Limit', (1015, 45))
+plt.annotate('Mean', (1015, df_sigmas.iloc[[-1]]['mean']), va = 'center', color = '#F79646')
+```
+### Output
+![Sample funnel plot output.](https://github.com/lyonjust/funnelpy/blob/master/sampleFunnelPowerUser.png?raw=true)
+
 ## Release History
+* 0.3.0
+    * Changed calculation of mean to weighted mean by sample size. I still intend to update this further to use the inverse-variance method, but I think this is a decent improvement until then.
+    * Expanded usage example for **sigmas** to show how Stephen Few's example funnel plot could be more completely replicated by a "Power User".
 * 0.2.0
     * First somewhat stable release. Anything prior to this is going to be a disaster.
 
