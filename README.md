@@ -120,7 +120,7 @@ fpy.funnelplot(
 
 This example uses the same data but does not visualise the funnel plot directly through the function.
 
-Instead, retrieves the calulcated confidence intervals and produces a plot through manual use of seaborn and matplotlib functionality. This gives us greater flexibility over visualisation design.
+Instead, we retrieve the calulcated confidence intervals and produce a plot through manual use of seaborn and matplotlib functionality. This gives us greater flexibility over visualisation design.
 ```sh
 import funnelpy.funnelpy as fpy
 
