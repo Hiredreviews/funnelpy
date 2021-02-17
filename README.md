@@ -222,6 +222,8 @@ plt.annotate('Mean', (1015, df_sigmas.iloc[[-1]]['mean']), va = 'center', color 
 ![Sample funnel plot output.](https://github.com/lyonjust/funnelpy/blob/master/sampleFunnelPowerUser.png?raw=true)
 
 ## Release History
+* 0.4.0
+    * **sigmas** now returns the group names in the dataframe of data to plot.
 * 0.3.0
     * Changed calculation of mean to weighted mean by sample size. I still intend to update this further to use the inverse-variance method, but I think this is a decent improvement until then.
     * Expanded usage example for **sigmas** to show how Stephen Few's example funnel plot could be more completely replicated by a "Power User".
