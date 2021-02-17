@@ -72,6 +72,7 @@ def sigmas(
 
     datapoints_to_plot = pd.DataFrame(
         {'samplesizes' : samplesizes,
+        'incidents' : incidents,
         'incident_rates' : incident_rates
         })
 
