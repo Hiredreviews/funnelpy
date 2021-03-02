@@ -223,9 +223,7 @@ plt.annotate('Mean', (1015, df_sigmas.iloc[[-1]]['mean']), va = 'center', color 
 ![Sample funnel plot output.](https://github.com/lyonjust/funnelpy/blob/master/sampleFunnelPowerUser.png?raw=true)
 
 ## Release History
-* 0.6.2
-    * Bug fix on **normalize** parameter of the **sigmas** function.
-* 0.6.1
+* 0.6.5
     * Bug fix on **normalize** parameter of the **sigmas** function.
 * 0.6.0
     * **sigmas** **sqrt_normalize** parameter replaced by **normalize** which accepts either "square" or "sqrt" to allow transforming the data prior to calculating sigma curves.
