@@ -10,10 +10,9 @@ def sigmas(
 	groups,
 	samplesizes,
 	incidents,
-	length = 50
+	length = 50,
+        sqrt_normalize = False,
 	):
-    
-    # add z order etc??
 
     # calculate key values
     incident_rates = list(map(truediv, incidents, samplesizes)) 
@@ -21,6 +20,9 @@ def sigmas(
     max_groupsize = max(samplesizes)
     spread_groupsize = max_groupsize - min_groupsize
     interval = spread_groupsize / length
+
+    if sqrt_normalize == True:
+        incident_rates = np.sqrt(incident_rates)
 
     # we should calculate a weighted mean using the inverse standard error
     # to ensures the "mean" is more influenced by groups with larger sample size / precision
