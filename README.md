@@ -23,11 +23,11 @@ The second function **funnelplot** first calls **sigmas** to retrieve those two 
 Power users may prefer to use **sigmas** to simply perform the confidence interval calculations and have the flexibility to use these as inputs into their own plots.
 
 ## Warning
-The statistics behind funnel plots assume the underlying data is Normally distributed. Please ensure your datapoints are approximately Normal before using this package.
+The statistics behind funnel plots assume the underlying data is Normally distributed. Please ensure your datapoints are approximately Normal before using this package. The **normalize** parameter of the **sigmas** function may assist in transforming skewed data.
 
 ## Parameters
 
-### `fpy.sigmas(groups, samplesizes, incidents, [length], [sqrt_normalize])`
+### `fpy.sigmas(groups, samplesizes, incidents, [length], [normalize])`
 
 - `groups` (`string`): a list of strings, naming the groups to be plotted.
 - `samplesizes` (`int`): a list of integers, representing the sample sizes of each member of the group.
@@ -223,7 +223,7 @@ plt.annotate('Mean', (1015, df_sigmas.iloc[[-1]]['mean']), va = 'center', color 
 ![Sample funnel plot output.](https://github.com/lyonjust/funnelpy/blob/master/sampleFunnelPowerUser.png?raw=true)
 
 ## Release History
-* 0.6.5
+* 0.7.0
     * Bug fix on **normalize** parameter of the **sigmas** function.
 * 0.6.0
     * **sigmas** **sqrt_normalize** parameter replaced by **normalize** which accepts either "square" or "sqrt" to allow transforming the data prior to calculating sigma curves.
