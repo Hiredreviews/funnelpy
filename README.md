@@ -33,7 +33,7 @@ The statistics behind funnel plots assume the underlying data is Normally distri
 - `samplesizes` (`int`): a list of integers, representing the sample sizes of each member of the group.
 - `incidents` (`int`): a list of integers, representing the number of times an event occured for each member of the group.
 - `length` (`int`): (Optional) an integer representing the number of intervals across the x axis to be plotted. Defaults to 50 if omitted. This effectively dictates the "smoothness" of the sigma curves. A small number is jarring, a large number is smooth.
-- `normalize` (`string`): (Optional) a string representing the transformation to be performed on the incident rates prior to calculating sigma curves. Defaults to None if omitted. Can be "square" for square transform or "sqrt" for square-root transform.
+- `normalize` (`string`): (Optional) a string representing the transformation to be performed on the incident rates prior to calculating sigma curves. Defaults to "no" if omitted. Can be "square" for square transform or "sqrt" for square-root transform.
 
 ### `fpy.funnelplot(groups, samplesizes, incidents, [length], [twosigma], [threesigma], [color_twosigma], [color_threesigma], [color_mean], [color_data], [color_face], [funnel_size], [plt_title], [plt_xlabel], [plt_ylabel], [plt_ylim_min], [plt_ylim_max])`
 
@@ -223,8 +223,10 @@ plt.annotate('Mean', (1015, df_sigmas.iloc[[-1]]['mean']), va = 'center', color 
 ![Sample funnel plot output.](https://github.com/lyonjust/funnelpy/blob/master/sampleFunnelPowerUser.png?raw=true)
 
 ## Release History
+* 0.6.2
+    * Bug fix on **normalize** parameter of the **sigmas** function.
 * 0.6.1
-    * Bug fix on **normalize** function.
+    * Bug fix on **normalize** parameter of the **sigmas** function.
 * 0.6.0
     * **sigmas** **sqrt_normalize** parameter replaced by **normalize** which accepts either "square" or "sqrt" to allow transforming the data prior to calculating sigma curves.
 * 0.5.0
@@ -240,6 +242,7 @@ plt.annotate('Mean', (1015, df_sigmas.iloc[[-1]]['mean']), va = 'center', color 
 ## Author
 
 Justin Lyons
+
 @lyonjust
 
 Distributed under the MIT license.

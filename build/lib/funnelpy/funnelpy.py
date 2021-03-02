@@ -11,7 +11,7 @@ def sigmas(
 	samplesizes,
 	incidents,
 	length = 50,
-        normalize = None,
+        normalize = 'no'
 	):
 
     # calculate key values
