@@ -11,7 +11,7 @@ def sigmas(
 	samplesizes,
 	incidents,
 	length = 50,
-        sqrt_normalize = False,
+        normalize = None,
 	):
 
     # calculate key values
@@ -21,8 +21,10 @@ def sigmas(
     spread_groupsize = max_groupsize - min_groupsize
     interval = spread_groupsize / length
 
-    if sqrt_normalize == True:
+    if normalize == 'sqrt':
         incident_rates = np.sqrt(incident_rates)
+    elif normalize == 'square':
+        incident_rates = np.square(incident_rates)
 
     # we should calculate a weighted mean using the inverse standard error
     # to ensures the "mean" is more influenced by groups with larger sample size / precision
