@@ -52,7 +52,7 @@ def sigmas(
     lst_chart_index[0] = 0
 
     for i in range(1, len(lst_ss[1:]) + 1):
-        lst_chart_index[i] = max_groupsize / (len(lst_ss[1:]) + 1) * i
+        lst_chart_index[i] = max_groupsize / (len(lst_ss[1:])) * i
         if (lst_ss[i - 1] + interval) < (max_groupsize + interval):
             lst_ss[i] = (lst_ss[i - 1] + interval)
 

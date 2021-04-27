@@ -223,6 +223,8 @@ plt.annotate('Mean', (1015, df_sigmas.iloc[[-1]]['mean']), va = 'center', color 
 ![Sample funnel plot output.](https://github.com/lyonjust/funnelpy/blob/master/sampleFunnelPowerUser.png?raw=true)
 
 ## Release History
+* 0.8.0
+    * Extended length of sigma curves such that they will be the same distance along the x-axis as the furthest point. Previously they fell one "interval" short.
 * 0.7.0
     * Bug fix on **normalize** parameter of the **sigmas** function.
 * 0.6.0
